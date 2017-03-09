@@ -2,7 +2,11 @@
 
 int main() {
 
-    printf("Storage size for a float in this env: %d \n", sizeof(float));
+    int i, j, k;
+
+    i = 10;
+
+    printf("I is %d", i);
 
     return 0;
 }
