@@ -1,13 +1,32 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-bool is_prime(int);
+bool isPrime(int);
+
+int getLargestPrimeFactor(long);
 
 int main() {
-   
+    long number = 600851475143;
+
+    int result = getLargestPrimeFactor(number);
+
 }
 
-bool is_prime(int number) {
+int getLargestPrimeFactor(long sum) {
+    int result;
+    int allFactors[20];
+
+    // Get all prime factors
+    //todo
+
+    // Get highest prime factor
+    //todo
+
+    // Return highest prime factor
+    return result;
+}
+
+bool isPrime(int number) {
     // Must be greater than 1
     if (number <= 1) {
         return false;
