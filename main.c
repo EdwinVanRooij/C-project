@@ -1,39 +1,30 @@
 #include <stdio.h>
+#include <stdbool.h>
+
+bool is_prime(int);
 
 int main() {
-
-    // Initialize final variable
-    int total;
-
-    // Start with 1 and 2
-    int number1 = 1;
-    int number2 = 2;
-
-    // Since 2 is an even number, add it in advance
-    total += number2;
-
-    // Temp number to be used in every calculation
-    int tmp;
-
-    do {
-        // Calculate the new number
-        tmp = number1 + number2;
-
-        // If number exceeds 4 million, end calculations
-        if (tmp > 4000000) {
-            break;
-        }
-
-        // If the new number is even, add it to the total
-        if (tmp % 2 == 0) {
-            total += tmp;
-        }
-
-        // Number 1 will be the previous new number
-        number1 = number2;
-        number2 = tmp;
-    } while (number2 < 4000000);
-
-    printf("Answer: %d", total);
+   
 }
 
+bool is_prime(int number) {
+    // Must be greater than 1
+    if (number <= 1) {
+        return false;
+    }
+
+    // Start at 1, because everything is divisible by 1
+    int x = 2;
+
+    // While x is lower than the number to check for
+    while (x < number) {
+        // If the number to check for is equally divisible, the number is not a prime number
+        if (number % x == 0) {
+            return false;
+        }
+        x++;
+    };
+
+    // No divisor found, number is prime
+    return true;
+}
