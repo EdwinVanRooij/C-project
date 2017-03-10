@@ -15,8 +15,7 @@ int main() {
     // Temp number to be used in every calculation
     int tmp;
 
-    for (int i = 0; i < 500000; ++i) {
-
+    do {
         // Calculate the new number
         tmp = number1 + number2;
 
@@ -32,9 +31,8 @@ int main() {
 
         // Number 1 will be the previous new number
         number1 = number2;
-        // Number 2 will be the new number
         number2 = tmp;
-    }
+    } while (number2 < 4000000);
 
     printf("Answer: %d", total);
 }
