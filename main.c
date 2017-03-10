@@ -18,6 +18,9 @@ int main() {
     struct Student student1;
     struct Student student2;
 
+    struct Student *pStudent1 = &student1;
+    struct Student *pStudent2 = &student2;
+
     // Student 1 specs
     strcpy(student1.name, "Naam");
     student1.age = 18;
@@ -30,6 +33,8 @@ int main() {
 
     printStudent(student1);
     printStudent(student2);
+    printStudent(*pStudent1);
+    printStudent(*pStudent2);
 }
 
 void printStudent(struct Student student) {
