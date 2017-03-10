@@ -1,17 +1,41 @@
 #include <stdio.h>
 
 int main() {
-    int initial_list[1000];
 
+    // Initialize final variable
     int total;
-    for (int i = 0; i < sizeof(initial_list) / sizeof(initial_list[0]); ++i) {
-        if (i <= 0) {
-            continue;
+
+    // Start with 1 and 2
+    int number1 = 1;
+    int number2 = 2;
+
+    // Since 2 is an even number, add it in advance
+    total += number2;
+
+    // Temp number to be used in every calculation
+    int tmp;
+
+    for (int i = 0; i < 500000; ++i) {
+
+        // Calculate the new number
+        tmp = number1 + number2;
+
+        // If number exceeds 4 million, end calculations
+        if (tmp > 4000000) {
+            break;
         }
-        if (i % 5 == 0 || i % 3 == 0) {
-            total += i;
+
+        // If the new number is even, add it to the total
+        if (tmp % 2 == 0) {
+            total += tmp;
         }
+
+        // Number 1 will be the previous new number
+        number1 = number2;
+        // Number 2 will be the new number
+        number2 = tmp;
     }
-    printf("Total is: %d", total);
+
+    printf("Answer: %d", total);
 }
 
