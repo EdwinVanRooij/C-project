@@ -10,20 +10,21 @@ int main() {
 
     int result = getLargestPrimeFactor(number);
 
+    printf("Result: %d", result);
 }
 
 int getLargestPrimeFactor(long sum) {
-    int result;
-    int allFactors[20];
-
-    // Get all prime factors
-    //todo
-
-    // Get highest prime factor
-    //todo
-
-    // Return highest prime factor
-    return result;
+    long highestFactor = 0;
+    int x = 0;
+    float tmp = 0;
+    while (x < sum) {
+        tmp = sum / x;
+        if (isPrime(x) && tmp % 1.0 == 0) {
+            highestFactor = tmp;
+        }
+        x++;
+    }
+    return (int) highestFactor;
 }
 
 bool isPrime(int number) {
