@@ -3,10 +3,16 @@
 #include <math.h>
 #include <time.h>
 #include <stdlib.h>
+#include <memory.h>
 
 bool isDivisible(long, int);
 
 bool isPrime(int);
+
+bool isPalindrome(long);
+
+long findHighestPalindromeForDigits();
+
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {
@@ -18,36 +24,93 @@ int main(int argc, char *argv[]) {
     // Start a clock
     clock_t begin = clock();
 
-    long starting_number = atoll(argv[1]);
-    long remainder = starting_number;
-    int highest_factor;
+    long amountOfDigits = atoll(argv[1]);
 
-    int x = 1;
+    long highestPalindrome = findHighestPalindromeForDigits();
 
-    // Loop while remainder is higher than 1
-    while (remainder > 1) {
-        // Make sure we have a prime number
-        if (isPrime(x)) {
-            // If remainder is divisible by x, set new highest factor
-            if (isDivisible(remainder, x)) {
-                highest_factor = x;
-                // Set new remainder
-                remainder = remainder / x;
-                x = 1;
-            }
-        }
-        x++;
-    }
     clock_t end = clock();
     double time_spent = (double) (end - begin) / CLOCKS_PER_SEC;
 
-    printf("Found result '%d' for number %ld in %f seconds.\n", highest_factor, starting_number, time_spent);
+    printf("Found result '%ld' in %f seconds.\n", highestPalindrome, time_spent);
+}
+
+/**
+ * Finds highest palindrome for x amount of digits.
+ * @param amountOfDigits amount of digits
+ * @return highest palindrome
+ */
+long findHighestPalindromeForDigits() {
+    long highestPalindrome = 0;
+    long product;
+
+    for (int i = 0; i < 999; ++i) {
+        for (int j = 0; j < 999; ++j) {
+            product = i * j;
+            // If product is a palindrome, check if it's higher than previous one
+            if (isPalindrome(product)) {
+                if (product > highestPalindrome) {
+                    // Product is new highest palindrome
+                    highestPalindrome = product;
+                    printf("Highest palindrome is: %ld\n", highestPalindrome);
+                }
+            }
+        }
+    }
+
+    return highestPalindrome;
+}
+
+void tostring(char str[], int num) {
+    int i, rem, len = 0, n;
+
+    n = num;
+    while (n != 0) {
+        len++;
+        n /= 10;
+    }
+    for (i = 0; i < len; i++) {
+        rem = num % 10;
+        num = num / 10;
+        str[len - (i + 1)] = rem + '0';
+    }
+    str[len] = '\0';
+}
+
+int toint(char str[]) {
+    int len = strlen(str);
+    int i, num = 0;
+
+    for (i = 0; i < len; i++) {
+        num = num + ((str[len - (i + 1)] - '0') * pow(10, i));
+    }
+
+    return num;
+}
+
+/**
+ * Checks if the given number is a (mathematical) palindrome or not.
+ * @param number to check for
+ * @return boolean
+ */
+bool isPalindrome(long number) {
+    printf("Number: %ld\n", number);
+
+    char numberInString[16];
+
+    int iLastNumber = (int) (number % 10);
+    tostring(numberInString, (int) number);
+
+    int first = numberInString[0];
+    if (first )
+    printf("Last number: %d\n\n", iLastNumber);
+
+    return true;
 }
 
 /**
  * Checks if a number returns a whole number when divided by specified parameter.
  * @param numberToDivide (large) number to divide
- * @param numberToDivideWith number to devide (large) number with
+ * @param numberToDivideWith number to divide (large) number with
  * @return boolean
  */
 bool isDivisible(long numberToDivide, int numberToDivideWith) {
