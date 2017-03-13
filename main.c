@@ -31,7 +31,6 @@ int main(int argc, char *argv[]) {
             // If remainder is divisible by x, set new highest factor
             if (isDivisible(remainder, x)) {
                 highest_factor = x;
-                printf("Found a new highest: %d, remaining number: %ld\n", highest_factor, remainder);
                 // Set new remainder
                 remainder = remainder / x;
                 x = 1;
