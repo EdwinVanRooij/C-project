@@ -2,21 +2,27 @@
 #include <stdbool.h>
 #include <math.h>
 #include <time.h>
+#include <stdlib.h>
 
 bool isDivisible(long, int);
 
 bool isPrime(int);
 
-int main() {
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        // Incorrect amount of parameters given
+        printf("Usage: %s <number>", argv[0]);
+        return 0;
+    }
+
     // Start a clock
     clock_t begin = clock();
 
-//    long remainder = 600851475143;
-    long starting_number = 244389;
+    long starting_number = atoll(argv[1]);
     long remainder = starting_number;
     int highest_factor;
 
-    int x = 2;
+    int x = 1;
 
     // Loop while remainder is higher than 1
     while (remainder > 1) {
@@ -25,9 +31,10 @@ int main() {
             // If remainder is divisible by x, set new highest factor
             if (isDivisible(remainder, x)) {
                 highest_factor = x;
+                printf("Found a new highest: %d, remaining number: %d\n", highest_factor, remainder);
                 // Set new remainder
                 remainder = remainder / x;
-                x = 2;
+                x = 1;
             }
         }
         x++;
