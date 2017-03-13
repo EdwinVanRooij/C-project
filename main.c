@@ -11,8 +11,6 @@ int main() {
     // Start a clock
     clock_t begin = clock();
 
-    int result;
-
 //    long remainder = 600851475143;
     long starting_number = 244389;
     long remainder = starting_number;
@@ -23,17 +21,14 @@ int main() {
     // Loop while remainder is higher than 1
     while (remainder > 1) {
         // Make sure we have a prime number
-        if (!isPrime(x)) {
-            x++;
-            continue;
-        }
-
-        // If remainder is divisible by x, set new highest factor
-        if (isDivisible(remainder, x)) {
-            highest_factor = x;
-            // Set new remainder
-            remainder = remainder / x;
-            x = 2;
+        if (isPrime(x)) {
+            // If remainder is divisible by x, set new highest factor
+            if (isDivisible(remainder, x)) {
+                highest_factor = x;
+                // Set new remainder
+                remainder = remainder / x;
+                x = 2;
+            }
         }
         x++;
     }
