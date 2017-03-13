@@ -38,6 +38,12 @@ int main() {
     printf("Found result '%d' for number %ld in %f seconds.\n", highest_factor, starting_number, time_spent);
 }
 
+/**
+ * Checks if a number returns a whole number when divided by specified parameter.
+ * @param numberToDivide (large) number to divide
+ * @param numberToDivideWith number to devide (large) number with
+ * @return boolean
+ */
 bool isDivisible(long numberToDivide, int numberToDivideWith) {
     float x = numberToDivide;
     float y = numberToDivideWith;
@@ -49,6 +55,11 @@ bool isDivisible(long numberToDivide, int numberToDivideWith) {
     return false;
 }
 
+/**
+ * Checks whether a number is a prime number or not.
+ * @param number number to check for
+ * @return boolean
+ */
 bool isPrime(int number) {
     // Must be greater than 1
     if (number <= 1) {
