@@ -7,9 +7,6 @@
 
 int startProgramForAnswer();
 
-long findHighestPalindromeForDigits();
-
-
 int main(int argc, char *argv[]) {
     // Start a clock
     clock_t begin = clock();
