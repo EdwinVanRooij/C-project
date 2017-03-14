@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
  * @return highest palindrome
  */
 long findHighestPalindromeForDigits() {
-    long highestPalindrome = 0;
+    long highestPalindrome;
     long product;
 
     for (int i = 0; i < 999; ++i) {
@@ -94,17 +94,19 @@ int toint(char str[]) {
  */
 bool isPalindrome(long number) {
     printf("Number: %ld\n", number);
+    int iLastNumber = (int) (number % 10);
 
     char numberInString[16];
 
-    int iLastNumber = (int) (number % 10);
-    tostring(numberInString, (int) number);
+    int first = (int) numberInString[0];
+    if (first == iLastNumber) {
+        printf("%d and %d equal\n", first, iLastNumber);
+        return true;
+    }
+    printf("%d and %d are not equal\n", first, iLastNumber);
+//    printf("Last number: %d\n\n", iLastNumber);
 
-    int first = numberInString[0];
-    if (first )
-    printf("Last number: %d\n\n", iLastNumber);
-
-    return true;
+    return false;
 }
 
 /**
