@@ -26,29 +26,27 @@ int main(int argc, char *argv[]) {
  * @return the answer
  */
 long startProgramForAnswer() {
-    int maxNumber = 20;
+    long result = 0;
 
-    // Keep track of a number until we've found the smallest answer.
-    long currentNumber = maxNumber;
+    long sumOfSquareOfNumbers = 0;
+    long squareOfSumOfNumbers = 0;
 
-    // Loop until answer was found
-    while (1) {
-        // Check for every number from 1 to 20 if the current number is evenly divisible.
-        for (int i = 1; i < maxNumber + 1; ++i) {
-            // If current number isn't divisible by i, there's no point in checking for the others, so break this loop.
-            if (!isDivisible(currentNumber, i)) {
-//                printf("%d is not divisible by %d, breaking loop.\n", currentNumber, i);
-                break;
-            } else {
-//                printf("%d is divisible by %d, continuing...\n", currentNumber, i);
-                // Number is divisible, now check if we're at the last number and we'll have a winner!
-                if (i == maxNumber) {
-                    return currentNumber;
-                }
-            }
-        }
-        currentNumber++;
+    int amountOfNumbers = 100;
+
+    // Add squares of all numbers until max
+    for (int i = 1; i < amountOfNumbers + 1; ++i) {
+        sumOfSquareOfNumbers += i * i;
     }
+
+    // First add all numbers
+    for (int j = 0; j < amountOfNumbers + 1; ++j) {
+        squareOfSumOfNumbers += j;
+    }
+    // Then take the square of that number
+    squareOfSumOfNumbers *= squareOfSumOfNumbers;
+
+    result = squareOfSumOfNumbers - sumOfSquareOfNumbers;
+    return result;
 }
 
 bool isDivisible(long numberToDivide, int numberToDivideWith) {
