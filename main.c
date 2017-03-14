@@ -40,11 +40,11 @@ int main(int argc, char *argv[]) {
  * @return highest palindrome
  */
 long findHighestPalindromeForDigits() {
-    long highestPalindrome;
-    long product;
+    long highestPalindrome = 0;
+    long product = 0;
 
-    for (int i = 0; i < 999; ++i) {
-        for (int j = 0; j < 999; ++j) {
+    for (int i = 100; i < 999; ++i) {
+        for (int j = 100; j < 999; ++j) {
             product = i * j;
             // If product is a palindrome, check if it's higher than previous one
             if (isPalindrome(product)) {
@@ -60,52 +60,31 @@ long findHighestPalindromeForDigits() {
     return highestPalindrome;
 }
 
-void tostring(char str[], int num) {
-    int i, rem, len = 0, n;
-
-    n = num;
-    while (n != 0) {
-        len++;
-        n /= 10;
-    }
-    for (i = 0; i < len; i++) {
-        rem = num % 10;
-        num = num / 10;
-        str[len - (i + 1)] = rem + '0';
-    }
-    str[len] = '\0';
-}
-
-int toint(char str[]) {
-    int len = strlen(str);
-    int i, num = 0;
-
-    for (i = 0; i < len; i++) {
-        num = num + ((str[len - (i + 1)] - '0') * pow(10, i));
-    }
-
-    return num;
-}
-
 /**
  * Checks if the given number is a (mathematical) palindrome or not.
  * @param number to check for
  * @return boolean
  */
 bool isPalindrome(long number) {
-    printf("Number: %ld\n", number);
-    int iLastNumber = (int) (number % 10);
+    int iNum = (int) number;
 
-    char numberInString[16];
+    int first = iNum % 10;
+    iNum /= 10;
+    int second = iNum % 10;
+    iNum /= 10;
+    int third = iNum % 10;
+    iNum /= 10;
+    int fourth = iNum % 10;
+    iNum /= 10;
+    int fifth = iNum % 10;
+    iNum /= 10;
+    int sixth = iNum % 10;
 
-    int first = (int) numberInString[0];
-    if (first == iLastNumber) {
-        printf("%d and %d equal\n", first, iLastNumber);
+    if (first == sixth
+            && second == fifth
+            && third == fourth) {
         return true;
     }
-    printf("%d and %d are not equal\n", first, iLastNumber);
-//    printf("Last number: %d\n\n", iLastNumber);
-
     return false;
 }
 
