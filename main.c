@@ -26,3 +26,14 @@ int main(int argc, char *argv[]) {
 int startProgramForAnswer() {
     return 0;
 }
+
+bool isDivisible(long numberToDivide, int numberToDivideWith) {
+    float x = numberToDivide;
+    float y = numberToDivideWith;
+    float z = x / y;
+
+    if (floor(z) == z) {
+        return true;
+    }
+    return false;
+}
