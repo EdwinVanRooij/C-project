@@ -7,7 +7,7 @@
 
 long startProgramForAnswer();
 
-bool isDivisible(long, int);
+bool isPrime(int);
 
 int main(int argc, char *argv[]) {
     // Start a clock
@@ -28,32 +28,41 @@ int main(int argc, char *argv[]) {
 long startProgramForAnswer() {
     long result = 0;
 
-    long sumOfSquareOfNumbers = 0;
-    long squareOfSumOfNumbers = 0;
+    int currentNumber = 0;
+    int amountOfPrimes = 0;
 
-    int amountOfNumbers = 100;
-
-    // Add squares of all numbers until max
-    for (int i = 1; i < amountOfNumbers + 1; ++i) {
-        sumOfSquareOfNumbers += i * i;
+    while (1) {
+        currentNumber++;
+        if (isPrime(currentNumber)) {
+            amountOfPrimes++;
+            if (amountOfPrimes == 10001) {
+                result = currentNumber;
+                break;
+            }
+        }
     }
 
-    // First add all numbers
-    for (int j = 0; j < amountOfNumbers + 1; ++j) {
-        squareOfSumOfNumbers += j;
-    }
-    // Then take the square of that number
-    squareOfSumOfNumbers *= squareOfSumOfNumbers;
-
-    result = squareOfSumOfNumbers - sumOfSquareOfNumbers;
     return result;
 }
 
-bool isDivisible(long numberToDivide, int numberToDivideWith) {
-    long double z = (long double) numberToDivide / numberToDivideWith;
-
-    if (floor((double) z) == z) {
-        return true;
+bool isPrime(int number) {
+    // Must be greater than 1
+    if (number <= 1) {
+        return false;
     }
-    return false;
+
+    // Start at 1, because everything is divisible by 1
+    int x = 2;
+
+    // While x is lower than the number to check for
+    while (x < number) {
+        // If the number to check for is equally divisible, the number is not a prime number
+        if (number % x == 0) {
+            return false;
+        }
+        x++;
+    };
+
+    // No divisor found, number is prime
+    return true;
 }
