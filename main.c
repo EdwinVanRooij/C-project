@@ -5,9 +5,7 @@
 
 long long int startProgramForAnswer();
 
-bool isPythagoreanTriplet(int, int);
-
-bool isDivisible(long, int);
+bool isPrime(int);
 
 int main(int argc, char *argv[]) {
     // Start a clock
@@ -28,24 +26,33 @@ int main(int argc, char *argv[]) {
 long long int startProgramForAnswer() {
     long long int result = 0;
 
-
+    for (int i = 0; i < 2000000; ++i) {
+        if (isPrime(i)) {
+            result *= i;
+        }
+    }
 
     return result;
 }
 
-/**
- * Checks if a number returns a whole number when divided by specified parameter.
- * @param numberToDivide (large) number to divide
- * @param numberToDivideWith number to divide (large) number with
- * @return boolean
- */
-bool isDivisible(long numberToDivide, int numberToDivideWith) {
-    double x = numberToDivide;
-    double y = numberToDivideWith;
-    double z = x / y;
-
-    if (floor(z) == z) {
-        return true;
+bool isPrime(int number) {
+    // Must be greater than 1
+    if (number <= 1) {
+        return false;
     }
-    return false;
+
+    // Start at 1, because everything is divisible by 1
+    int x = 2;
+
+    // While x is lower than the number to check for
+    while (x < number) {
+        // If the number to check for is equally divisible, the number is not a prime number
+        if (number % x == 0) {
+            return false;
+        }
+        x++;
+    };
+
+    // No divisor found, number is prime
+    return true;
 }
