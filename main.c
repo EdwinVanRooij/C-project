@@ -3,9 +3,9 @@
 #include <math.h>
 #include <stdbool.h>
 
-long long int startProgramForAnswer();
-
 bool isPrime(int);
+
+long long int startProgramForAnswer();
 
 int main(int argc, char *argv[]) {
     // Start a clock
@@ -27,8 +27,9 @@ long long int startProgramForAnswer() {
     long long int result = 0;
 
     for (int i = 0; i < 2000000; ++i) {
+        printf("Checking %i for prime...\n", i);
         if (isPrime(i)) {
-            result *= i;
+            result += i;
         }
     }
 
