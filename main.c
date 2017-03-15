@@ -28,15 +28,20 @@ int main(int argc, char *argv[]) {
 long long int startProgramForAnswer() {
     long long int result = 0;
 
-    for (float a = 0; a < 10000; ++a) {
-        for (float b = 0; b < 10000; ++b) {
+    for (float a = 1; a < 1000; ++a) {
+        for (float b = 1; b < 1000; ++b) {
             float prodAB = a * a + b * b;
+//            printf("%f^ + %f^ = %f\n", a, b, prodAB);
             float c = (float) sqrt(prodAB);
             if (floor(c) == c) {
+//                printf("Square root of prodAB is %f and whole\n", sqrt(prodAB));
+                printf("Calculating sum: %f + %f + %f = %f\n", a, b, c, a + b + c);
                 // We have a pythagorean triplet
-                if (a + b + c == 1000) {
+                if (floor(a + b + c) == 1000) {
                     result = (long long int) (a * b * c);
                 }
+            } else {
+//                printf("Square root of prodAB is %f and NOT whole\n", sqrt(prodAB));
             }
         }
     }
