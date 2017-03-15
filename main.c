@@ -9,8 +9,6 @@ bool isPythagoreanTriplet(int, int);
 
 bool isDivisible(long, int);
 
-int square(int);
-
 int main(int argc, char *argv[]) {
     // Start a clock
     clock_t begin = clock();
@@ -30,23 +28,26 @@ int main(int argc, char *argv[]) {
 long long int startProgramForAnswer() {
     long long int result = 0;
 
-    for (int a = 0; a < 10000; ++a) {
-        for (int b = 0; b < 10000; ++b) {
-            int prodAB = square(a) + square(b);
+    for (float a = 0; a < 10000; ++a) {
+        for (float b = 0; b < 10000; ++b) {
+            float prodAB = a * a + b * b;
+            float c = (float) sqrt(prodAB);
+            if (floor(c) == c) {
+                // We have a pythagorean triplet
+                if (a + b + c == 1000) {
+                    result = (long long int) (a * b * c);
+                }
+            }
         }
     }
 
     return result;
 }
 
-int square(int num) {
-    return num * num;
-}
-
 /**
  * Checks if a number returns a whole number when divided by specified parameter.
  * @param numberToDivide (large) number to divide
- * @param numberToDivideWith number to devide (large) number with
+ * @param numberToDivideWith number to divide (large) number with
  * @return boolean
  */
 bool isDivisible(long numberToDivide, int numberToDivideWith) {
