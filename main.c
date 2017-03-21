@@ -3,6 +3,7 @@
 #include <math.h>
 #include <stdbool.h>
 #include <memory.h>
+#include <stdlib.h>
 
 long long int startProgramForAnswer();
 
@@ -97,18 +98,19 @@ long long int getHighestHorizontalProduct(char grid[]) {
 
             // Collect all pairs
             int startOfPairOne = i;
-            char pair1[3] = {grid[startOfPairOne], grid[startOfPairOne + 1]};
+            char pair1[3] = {grid[i], grid[startOfPairOne + 1], '\0'};
 
             int startOfPairTwo = startOfPairOne + pairSize + unusedAroundPair;
-            char pair2[3] = {grid[startOfPairTwo], grid[startOfPairTwo + 1]};
+            char pair2[3] = {grid[startOfPairTwo], grid[startOfPairTwo + 1], '\0'};
 
             int startOfPairThree = startOfPairTwo + pairSize + unusedAroundPair;
-            char pair3[3] = {grid[startOfPairThree], grid[startOfPairThree + 1]};
+            char pair3[3] = {grid[startOfPairThree], grid[startOfPairThree + 1], '\0'};
 
             int startOfPairFour = startOfPairThree + pairSize + unusedAroundPair;
-            char pair4[3] = {grid[startOfPairFour], grid[startOfPairFour + 1]};
+            char pair4[3] = {grid[startOfPairFour], grid[startOfPairFour + 1], '\0'};
 
-            printf("Pairs: %s %s %s %s \n", pair1, pair2, pair3, pair4);
+            printf("Pairs in string: %s %s %s %s \n", pair1, pair2, pair3, pair4);
+            printf("Pairs in int: %i %i %i %i \n", atoi(pair1), pair2, pair3, pair4);
         }
         printf("\n");
     }
