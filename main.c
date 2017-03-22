@@ -121,10 +121,6 @@ long long int getHighestHorizontalProduct(char grid[]) {
                 highestNumber = product;
             }
         }
-        return highestNumber;
     }
-
-//    for (int i = 0; i < strlen(grid); ++i) {
-//        printf("%c", grid[i]);
-//    }
+    return highestNumber;
 }
