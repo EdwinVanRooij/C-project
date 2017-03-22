@@ -8,6 +8,10 @@ long long int getHighestHorizontalProduct(char[]);
 
 long long int getHighestVerticalProduct(char[]);
 
+long long int getHighestDiagonalLeftRight(char[]);
+
+long long int getHighestDiagonalRightLeft(char[]);
+
 int main(int argc, char *argv[]) {
     // Start a clock
     clock_t begin = clock();
@@ -54,6 +58,23 @@ long long int startProgramForAnswer() {
 
     long long int longestVerticalProduct = getHighestVerticalProduct(completeGrid);
     printf("\nHighest vertical product: %lli\n\n", longestVerticalProduct);
+
+    long long int longestDiagonalLeftRight = getHighestDiagonalLeftRight(completeGrid);
+    printf("\nHighest diagonal left right product: %lli\n\n", longestDiagonalLeftRight);
+
+    long long int longestDiagonalRightLeft = getHighestDiagonalRightLeft(completeGrid);
+    printf("\nHighest diagonal right left product: %lli\n\n", longestDiagonalRightLeft);
+
+    result = longestHorizontalProduct;
+    if (longestVerticalProduct > result) {
+        result = longestVerticalProduct;
+    }
+    if (longestDiagonalLeftRight > result) {
+        result = longestDiagonalLeftRight;
+    }
+    if (longestDiagonalRightLeft > result) {
+        result = longestDiagonalRightLeft;
+    }
 
     return result;
 }
@@ -183,6 +204,159 @@ long long int getHighestVerticalProduct(char grid[]) {
                       * intRows[i + 1][k]
                       * intRows[i + 2][k]
                       * intRows[i + 3][k];
+            if (product > highestNumber) {
+                highestNumber = product;
+            }
+        }
+    }
+
+    return highestNumber;
+}
+
+/**
+ * Returns the highest product of numbers in a grid, diagonally starting left top, going right bottom.
+ */
+long long int getHighestDiagonalLeftRight(char grid[]) {
+    //region Variable declaration
+    // Declare highest number
+    long long int highestNumber = 0;
+
+    // Create an array[20] of int[20] items
+    int intRows[20][20];
+
+    // Declare variables
+    int rows = 20;
+    int pairsForEachRow = 20;
+    int unusedAroundRow = 1;
+    int unusedAroundPair = 1;
+    int pairSize = 2;
+    int pairsToMultiply = 4;
+    //endregion
+
+    //region 2D Array creation
+    // A row consists of pairs times their pair size with whitespaces for each
+    int rowSize = (pairsForEachRow * (pairSize + unusedAroundPair)) + unusedAroundRow;
+
+    for (int j = 0; j < rows; ++j) {
+        int startingPointLocation = j * rowSize;
+        int endPointLocation = startingPointLocation + rowSize - unusedAroundPair - unusedAroundRow - 1;
+
+        int pairNumberInRow = 0;
+        for (int i = startingPointLocation;
+             i < endPointLocation - (pairSize + unusedAroundPair) * (pairsToMultiply - 1);
+             i += (pairSize + unusedAroundPair) * 4) {
+
+            int startOfPairOne = i;
+            char pair1[3] = {grid[i], grid[startOfPairOne + 1], '\0'};
+
+            int startOfPairTwo = startOfPairOne + pairSize + unusedAroundPair;
+            char pair2[3] = {grid[startOfPairTwo], grid[startOfPairTwo + 1], '\0'};
+
+            int startOfPairThree = startOfPairTwo + pairSize + unusedAroundPair;
+            char pair3[3] = {grid[startOfPairThree], grid[startOfPairThree + 1], '\0'};
+
+            int startOfPairFour = startOfPairThree + pairSize + unusedAroundPair;
+            char pair4[3] = {grid[startOfPairFour], grid[startOfPairFour + 1], '\0'};
+
+            int rowNumber = i / rowSize;
+
+            intRows[rowNumber][pairNumberInRow] = atoi(pair1);
+            intRows[rowNumber][pairNumberInRow + 1] = atoi(pair2);
+            intRows[rowNumber][pairNumberInRow + 2] = atoi(pair3);
+            intRows[rowNumber][pairNumberInRow + 3] = atoi(pair4);
+
+            pairNumberInRow += 4;
+        }
+    }
+    //endregion
+
+    long long int product = 0;
+    for (int k = 0; k < 20 - 3; ++k) {
+        for (int i = 0; i < 20 - 3; i += 1) {
+            int pair1 = intRows[k][i];
+            int pair2 = intRows[k + 1][i + 1];
+            int pair3 = intRows[k + 2][i + 2];
+            int pair4 = intRows[k + 3][i + 3];
+            product = pair1 * pair2 * pair3 * pair4;
+//            printf("%i * %i * %i * %i = %lli\n", pair1, pair2, pair3, pair4, product);
+
+            if (product > highestNumber) {
+                highestNumber = product;
+            }
+        }
+    }
+
+    return highestNumber;
+}
+
+/**
+ * Returns the highest product of numbers in a grid, diagonally starting right top, going left bottom.
+ */
+long long int getHighestDiagonalRightLeft(char grid[]) {
+    //region Variable declaration
+    // Declare highest number
+    long long int highestNumber = 0;
+
+    // Create an array[20] of int[20] items
+    int intRows[20][20];
+
+    // Declare variables
+    int rows = 20;
+    int pairsForEachRow = 20;
+    int unusedAroundRow = 1;
+    int unusedAroundPair = 1;
+    int pairSize = 2;
+    int pairsToMultiply = 4;
+    //endregion
+
+    //region 2D Array creation
+    // A row consists of pairs times their pair size with whitespaces for each
+    int rowSize = (pairsForEachRow * (pairSize + unusedAroundPair)) + unusedAroundRow;
+
+    for (int j = 0; j < rows; ++j) {
+        int startingPointLocation = j * rowSize;
+        int endPointLocation = startingPointLocation + rowSize - unusedAroundPair - unusedAroundRow - 1;
+
+        int pairNumberInRow = 0;
+        for (int i = startingPointLocation;
+             i < endPointLocation - (pairSize + unusedAroundPair) * (pairsToMultiply - 1);
+             i += (pairSize + unusedAroundPair) * 4) {
+
+            int startOfPairOne = i;
+            char pair1[3] = {grid[i], grid[startOfPairOne + 1], '\0'};
+
+            int startOfPairTwo = startOfPairOne + pairSize + unusedAroundPair;
+            char pair2[3] = {grid[startOfPairTwo], grid[startOfPairTwo + 1], '\0'};
+
+            int startOfPairThree = startOfPairTwo + pairSize + unusedAroundPair;
+            char pair3[3] = {grid[startOfPairThree], grid[startOfPairThree + 1], '\0'};
+
+            int startOfPairFour = startOfPairThree + pairSize + unusedAroundPair;
+            char pair4[3] = {grid[startOfPairFour], grid[startOfPairFour + 1], '\0'};
+
+            int rowNumber = i / rowSize;
+
+            intRows[rowNumber][pairNumberInRow] = atoi(pair1);
+            intRows[rowNumber][pairNumberInRow + 1] = atoi(pair2);
+            intRows[rowNumber][pairNumberInRow + 2] = atoi(pair3);
+            intRows[rowNumber][pairNumberInRow + 3] = atoi(pair4);
+
+            pairNumberInRow += 4;
+        }
+    }
+    //endregion
+
+    long long int product = 0;
+    for (int k = 0; k < 20 - 3; ++k) {
+        for (int i = 3; i < 20; i += 1) {
+//            printf("k: %i, i: %i\n", k, i);
+            int pair1 = intRows[k][i];
+            int pair2 = intRows[k + 1][i - 1];
+            int pair3 = intRows[k + 2][i - 2];
+            int pair4 = intRows[k + 3][i - 3];
+            product = pair1 * pair2 * pair3 * pair4;
+//            printf("%i * %i * %i * %i = %lli\n", pair1, pair2, pair3, pair4, product);
+//
             if (product > highestNumber) {
                 highestNumber = product;
             }
