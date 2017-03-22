@@ -99,20 +99,28 @@ long long int getHighestHorizontalProduct(char grid[]) {
             // Collect all pairs
             int startOfPairOne = i;
             char pair1[3] = {grid[i], grid[startOfPairOne + 1], '\0'};
+            int pairOne = atoi(pair1);
 
             int startOfPairTwo = startOfPairOne + pairSize + unusedAroundPair;
             char pair2[3] = {grid[startOfPairTwo], grid[startOfPairTwo + 1], '\0'};
+            int pairTwo = atoi(pair2);
 
             int startOfPairThree = startOfPairTwo + pairSize + unusedAroundPair;
             char pair3[3] = {grid[startOfPairThree], grid[startOfPairThree + 1], '\0'};
+            int pairThree = atoi(pair3);
 
             int startOfPairFour = startOfPairThree + pairSize + unusedAroundPair;
             char pair4[3] = {grid[startOfPairFour], grid[startOfPairFour + 1], '\0'};
+            int pairFour = atoi(pair4);
 
-            printf("Pairs in string: %s %s %s %s \n", pair1, pair2, pair3, pair4);
-            printf("Pairs in int: %i %i %i %i \n", atoi(pair1), pair2, pair3, pair4);
+            long long int product = pairOne * pairTwo * pairThree * pairFour;
+
+            if (product > highestNumber) {
+                printf("Newest highest at pair %i, %i, %i, %i, in row %i, product is %lli\n", pairOne, pairTwo,
+                       pairThree, pairFour, j, product);
+                highestNumber = product;
+            }
         }
-        printf("\n");
     }
 
 //    for (int i = 0; i < strlen(grid); ++i) {
