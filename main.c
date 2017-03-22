@@ -1,13 +1,12 @@
 #include <stdio.h>
 #include <time.h>
-#include <math.h>
-#include <stdbool.h>
-#include <memory.h>
 #include <stdlib.h>
 
 long long int startProgramForAnswer();
 
 long long int getHighestHorizontalProduct(char[]);
+
+long long int getHighestVerticalProduct(char[]);
 
 int main(int argc, char *argv[]) {
     // Start a clock
@@ -51,15 +50,16 @@ long long int startProgramForAnswer() {
             "01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48 \n";
 
     long long int longestHorizontalProduct = getHighestHorizontalProduct(completeGrid);
-    printf("\nHighest horizontal product: %lli\n", longestHorizontalProduct);
+    printf("\nHighest horizontal product: %lli\n\n", longestHorizontalProduct);
+
+    long long int longestVerticalProduct = getHighestVerticalProduct(completeGrid);
+    printf("\nHighest vertical product: %lli\n\n", longestVerticalProduct);
 
     return result;
 }
 
 /**
  * Returns the highest product of numbers in a grid, horizontally.
- * @param grid grid to search in
- * @return long long value
  */
 long long int getHighestHorizontalProduct(char grid[]) {
     // Declare highest number
@@ -116,11 +116,78 @@ long long int getHighestHorizontalProduct(char grid[]) {
             long long int product = pairOne * pairTwo * pairThree * pairFour;
 
             if (product > highestNumber) {
-                printf("Newest highest at pair %i, %i, %i, %i, in row %i, product is %lli\n", pairOne, pairTwo,
-                       pairThree, pairFour, j, product);
                 highestNumber = product;
             }
         }
     }
+    return highestNumber;
+}
+
+/**
+ * Returns the highest product of numbers in a grid, vertically.
+ */
+long long int getHighestVerticalProduct(char grid[]) {
+    // Declare highest number
+    long long int highestNumber = 0;
+
+    // Create an array[20] of int[20] items
+    int intRows[20][20];
+
+    // Declare variables
+    int rows = 20;
+    int pairsForEachRow = 20;
+    int unusedAroundRow = 1;
+    int unusedAroundPair = 1;
+    int pairSize = 2;
+    int pairsToMultiply = 4;
+
+    // A row consists of pairs times their pair size with whitespaces for each
+    int rowSize = (pairsForEachRow * (pairSize + unusedAroundPair)) + unusedAroundRow;
+
+    for (int j = 0; j < rows; ++j) {
+        int startingPointLocation = j * rowSize;
+        int endPointLocation = startingPointLocation + rowSize - unusedAroundPair - unusedAroundRow - 1;
+
+        int pairNumberInRow = 0;
+        for (int i = startingPointLocation;
+             i < endPointLocation - (pairSize + unusedAroundPair) * (pairsToMultiply - 1);
+             i += (pairSize + unusedAroundPair) * 4) {
+
+            int startOfPairOne = i;
+            char pair1[3] = {grid[i], grid[startOfPairOne + 1], '\0'};
+
+            int startOfPairTwo = startOfPairOne + pairSize + unusedAroundPair;
+            char pair2[3] = {grid[startOfPairTwo], grid[startOfPairTwo + 1], '\0'};
+
+            int startOfPairThree = startOfPairTwo + pairSize + unusedAroundPair;
+            char pair3[3] = {grid[startOfPairThree], grid[startOfPairThree + 1], '\0'};
+
+            int startOfPairFour = startOfPairThree + pairSize + unusedAroundPair;
+            char pair4[3] = {grid[startOfPairFour], grid[startOfPairFour + 1], '\0'};
+
+            int rowNumber = i / rowSize;
+
+            intRows[rowNumber][pairNumberInRow] = atoi(pair1);
+            intRows[rowNumber][pairNumberInRow + 1] = atoi(pair2);
+            intRows[rowNumber][pairNumberInRow + 2] = atoi(pair3);
+            intRows[rowNumber][pairNumberInRow + 3] = atoi(pair4);
+
+            pairNumberInRow += 4;
+        }
+    }
+
+    long long int product = 0;
+    for (int k = 0; k < 20; ++k) {
+        for (int i = 0; i < 17; i += 1) {
+            product = intRows[i][k]
+                      * intRows[i + 1][k]
+                      * intRows[i + 2][k]
+                      * intRows[i + 3][k];
+            if (product > highestNumber) {
+                highestNumber = product;
+            }
+        }
+    }
+
     return highestNumber;
 }
