@@ -21,8 +21,38 @@ int main(int argc, char *argv[]) {
  */
 long long int startProgramForAnswer() {
     long long int result = 0;
+    int amountOfDivisibleNumbers = 0;
 
-    // todo; Solve problem
+    long long int currentNumber = 0;
+    int index = 0;
+
+    while (amountOfDivisibleNumbers < 500) {
+        currentNumber += index;
+
+        amountOfDivisibleNumbers = amountOfDivisibleNumbersFor(currentNumber);
+
+        index++;
+    }
 
     return result;
 }
+
+int amountOfDivisibleNumbersFor(long long int number) {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
