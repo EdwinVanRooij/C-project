@@ -1,7 +1,13 @@
 #include <stdio.h>
 #include <time.h>
+#include <stdbool.h>
+#include <math.h>
 
 long long int startProgramForAnswer();
+
+int amountOfDivisibleNumbersFor(long long int);
+
+bool isDivisible(long long int, int);
 
 int main(int argc, char *argv[]) {
     // Start a clock
@@ -26,7 +32,7 @@ long long int startProgramForAnswer() {
     long long int currentNumber = 0;
     int index = 0;
 
-    while (amountOfDivisibleNumbers < 500) {
+    while (amountOfDivisibleNumbers <= 500) {
         currentNumber += index;
 
         amountOfDivisibleNumbers = amountOfDivisibleNumbersFor(currentNumber);
@@ -34,25 +40,28 @@ long long int startProgramForAnswer() {
         index++;
     }
 
-    return result;
+    return currentNumber;
 }
 
 int amountOfDivisibleNumbersFor(long long int number) {
+    int amount = 0;
 
+    for (int i = 0; i < number; ++i) {
+        if (isDivisible(number, i)) {
+            amount++;
+        }
+    }
+
+    return amount;
 }
 
+bool isDivisible(long long int numberToDivide, int numberToDivideWith) {
+    float x = numberToDivide;
+    float y = numberToDivideWith;
+    float z = x / y;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    if (floor(z) == z) {
+        return true;
+    }
+    return false;
+}
